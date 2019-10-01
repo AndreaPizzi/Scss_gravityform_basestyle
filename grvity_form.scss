@@ -1,0 +1,311 @@
+/* Mixin and vars */
+
+$breakpoint__phone: 460px;
+$dark_gray: #3A3B40;
+$form_border:#979797;
+$blue: #222A50;
+$form_label_size:size(12);
+$form_label_line-height:size(15);
+$form_placeholder_size:size(15);
+$form_placeholder_line-height:size(20);
+$btnsmall__text:size(16);
+$btnsmall__line_height:size(23);
+$p__font_Size:size(19);
+$p__line_height:size(26);
+
+$transition-type: ease-in-out;
+$animation_short: all 400ms $transition-type;
+.animation_short{
+    -webkit-transition: $animation_short;
+    -moz-transition: $animation_short;
+    -o-transition: $animation_short;
+    transition: $animation_short;
+}
+
+
+/* Gravity Form */
+  
+  
+  .gform_body{
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+
+  .gform_fields{
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -moz-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    @include flex-direction(row);
+    @include flex-wrap(wrap);
+    @media (max-width: $breakpoint__phone) {
+        @include flex-direction(column);
+    }
+      .gfield{
+        max-width:100%;
+        width:100%;
+        &.small{
+            max-width:50%;
+            width:50%;
+            
+            &.gfield_error{
+                width:50% !important;
+            }
+            @media (max-width: $breakpoint__phone) {
+                max-width:100%;
+                width:100%;
+                &.gfield_error{
+                    width:100% !important;
+                }
+            }
+          }
+          &.gfield_error{
+            padding-top: 0 !important;
+            margin-top: size(10);
+          }
+          input, textarea{
+              background-color: transparent;
+              border:0px;
+              position:relative;
+              display:block;
+              overflow: hidden;
+              min-width:100%;
+              color:$dark_gray;
+              &::placeholder{
+                color:$dark_gray;
+                font-size: $form_placeholder_size;
+                font-weight: 500;
+                line-height: $form_placeholder_line-height;
+              }
+              &:active, &:focus{
+                  outline: none;
+              }
+          }
+          .ginput_container{
+            position:relative;
+            display:block;
+            overflow: hidden;
+            
+            &:after{
+                position:absolute;
+                display: block;
+                width:100%;
+                height:size(1);
+                background-color:$form_border;
+                left:0px;
+                bottom:0px;
+                content: "";
+            }
+            &:before{
+                position:absolute;
+                display: block;
+                width:0%;
+                height:size(1);
+                background-color:$dark_gray;
+                left:0px;
+                bottom:0px;
+                content: "";
+                z-index:999;
+                @extend .animation_short;
+            }
+            &:hover{
+                &:before{
+                    width:100%;
+                }
+            }
+            &.ginput_container_consent{
+                &:after,&:before{
+                    display:none;
+                }
+                label{
+                    color: $dark_gray;
+                    font-size: $form_label_size;
+                    font-weight: 500;
+                    line-height: $form_label_line-height;
+                    display:inline-block;
+                    a{
+                        color: $dark_gray;
+                        font-size: $form_label_size;
+                        font-weight: 500;
+                        line-height: $form_label_line-height;
+                        text-decoration:underline;
+                    }
+                    
+                }
+                input{
+                    width: auto;
+                    min-width: 0;
+                    display: initial;
+                    position:absolute;
+                    opacity:0;
+                    & + label {
+                        position: relative;
+                        cursor: pointer;
+                        padding: 0;
+                      }
+                    
+                      // Box.
+                      & + label:before {
+                        content: '';
+                        margin-right: 10px;
+                        display: inline-block;
+                        vertical-align: text-top;
+                        width: size(17);
+                        height: size(17);
+                        background: white;
+                        border: size(1) solid $form_border;
+                        @extend .animation_short;
+                        border-radius: size(2);
+                        margin-top: size(-1);
+                      }
+                  
+                      & + label:after {
+                          content: '';
+                        position: absolute;
+                        left: size(4);
+                        top: size(3);
+                        background: white;
+                        width: size(9);
+                        height: size(9);
+                        box-shadow: none;
+                          opacity:0;
+                          @extend .animation_short;
+                        }
+                    
+                      // Box hover
+                      &:hover + label:before {
+                        background: $blue;
+                      }
+                      
+                      // Box focus
+                      &:focus + label:before {
+                       // box-shadow: 0 0 0 3px rgba(0, 0, 0, 0);
+                      }
+                    
+                      // Box checked
+                      &:checked + label:before {
+                        background: $blue;
+                      }
+                      
+                      // Disabled state label.
+                      &:disabled + label {
+                        color: #b8b8b8;
+                        cursor: auto;
+                      }
+                    
+                      // Disabled box.
+                      &:disabled + label:before {
+                        box-shadow: none;
+                        background: #ddd;
+                      }
+                    
+                      // Checkmark. Could be replaced with an image
+                      &:checked + label:after {
+                        opacity:1;
+                      }
+                }
+                .gfield_required{
+                    display:none;
+                }
+
+                @media (max-width: $breakpoint__phone) {
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+                }
+            }
+          }          
+        .gfield_consent_description{
+            border:0px !important;
+            padding-left: 0px !important;
+            padding-top: 0px !important;
+            margin-top: 0px !important;
+            small{
+                font-size: size(12);
+                @media (max-width: $breakpoint__phone) {
+                    font-size: 12px;
+                }
+            }
+            @media (max-width: $breakpoint__phone) {
+                margin-left: 2rem;
+                font-size: 12px;
+            }
+        }
+        &.privacy{
+            margin-top:size(40);
+        }
+      }
+      
+  }
+  .gform_footer{
+    @include flexbox;
+    @include justify-content(flex-end);
+    max-width: 50%;
+    float: right;
+    margin-top: size(-60) !important;
+    padding-top: 0px !important;
+    z-index: 9999999;
+    position: relative;
+    @media (max-width: $breakpoint__phone) {
+        margin-top: 1rem !important;
+        max-width: 100%;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+    .gform_button{
+        border: 0px;
+        background-color: $yellow;
+        color: $dark_gray;
+        font-size: $btnsmall__text;
+        font-weight: bold;
+        line-height: $btnsmall__line_height;
+        text-align: center;
+        padding:size(8) size(12);
+        .far{
+            margin-right: size(16);
+            @extend .animation_short;
+            transform: rotate(0deg);
+        }
+        
+        &:hover{
+            .far{
+                transform: rotate(30deg);
+            }
+        }       
+    }
+  }
+  .mail_wrp{
+      .mail_link{
+        color: $dark_gray;
+        @extend .futura;
+        font-size: $p__font_Size;
+        line-height: $p__line_height;
+      }
+      @media (max-width: $breakpoint__phone) {
+        @include flexbox;
+        @include justify-content(center);
+        margin-top: 8rem;
+        position: relative;
+        text-align: center;
+    }
+  }
+  
+  .gform_wrapper .validation_message {
+    padding-top: 0px !important;
+}
+
+  .gform_wrapper li.gfield.gfield_error, .gform_wrapper li.gfield.gfield_error.gfield_contains_required.gfield_creditcard_warning{
+    background-color: rgba(255,223,224,0) !important;
+    margin-bottom: 0 !important;
+    border-top: 0px solid #C89797 !important;
+    border-bottom: 0px solid #C89797 !important;
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
+    box-sizing: border-box;
+    max-width: none !important;
+    //width: 50% !important;
+  }
+  .gform_wrapper li.gfield_error input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), .gform_wrapper li.gfield_error textarea{
+    border: 0px solid #790000 !important;
+  }
